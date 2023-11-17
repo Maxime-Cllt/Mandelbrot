@@ -24,4 +24,4 @@ fractal célèbre en mathématiques et cette implémentation permet le calcul pa
 1. **Cloner le Dépôt :**
 
    ```bash
-   git clone https://github.com/votre-utilisateur/mandelbrot-distributed-java-rmi.git
+   git clone https://github.com/Maxime-Cllt/Mandelbrot.git
