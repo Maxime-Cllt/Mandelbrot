@@ -1,4 +1,4 @@
-package client;
+package server.obj;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -9,16 +9,22 @@ public class Point implements Serializable {
     private Color color;
 
     public Point() {
-        this.x = 0;
-        this.y = 0;
-        this.color = Color.black;
+        this(0, 0, Color.black);
     }
 
-    public Point(int newX, int newY) {
-        this.x = newX;
-        this.y = newY;
-        this.color = Color.black;
+    public Point(int x, int y) {
+        this(x, y, Color.black);
     }
+
+    public Point(int x, int y, Color color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+    }
+
+    /********************
+     * GETTER AND SETTER
+     *******************/
 
     public int getX() {
         return this.x;
