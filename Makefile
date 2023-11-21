@@ -1,10 +1,15 @@
 all:
-#kill -9 $$(pidof rmiregistry)
+	# Compilation des fichiers java
 	javac server/*.java
+	javac server/obj/*.java
 	javac client/*.java
-	./server/rmi.sh
+	# Lancement du rmiregistry dans un script perso
+	#./server/rmi.sh
+	# Lancement du serveur
 	java server.Serveur
 
 clean:
-	rm *.class
+	rm server/*.class
+	rm server/obj/*.class
+	rm client/*.class
 	

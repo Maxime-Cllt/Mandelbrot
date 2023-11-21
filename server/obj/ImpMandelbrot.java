@@ -33,6 +33,16 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
         dataToDo.add(point);
     }
 
+    public int getMax() throws RemoteException {
+        int max = 0;
+        for (Task task : taskDone) {
+            if (task.getDivergence() > max) {
+                max = task.getDivergence();
+            }
+        }
+        return max;
+    }
+
     /**
      * Fonction qui retourne une tâche à traiter
      *
@@ -54,5 +64,36 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
     public void addResult(Task task) throws RemoteException {
         taskDone.add(task);
     }
+
+
+//    public static void calculComplexite() throws IOException {
+//        ArrayList<Integer> div = new ArrayList<>();
+//        for (int i = 0; i < 100; i++) {
+//            div.add(0);
+//        }
+//        for (Task t : bag.taskDone) {
+//            div.set(t.getDivergence(), div.get(t.getDivergence()) + 1);
+//        }
+//        int j = 0;
+//        // écrire dans un .csv
+//        File csv = new File("Complexite.csv");
+//        FileWriter fw = new FileWriter(csv);
+//        for (Integer i : div) {
+//            String line = "\"" +
+//                    j +
+//                    "\"" +
+//                    ";" +
+//                    "\"" +
+//                    i +
+//                    "\"" +
+//                    ";" +
+//                    "\n";
+//            //System.out.println("nb de points avec une divergence de " + j + " est de " + i);
+//            j++;
+//            fw.write(line);
+//        }
+//        fw.close();
+//    }
+
 
 }

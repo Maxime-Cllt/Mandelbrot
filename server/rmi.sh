@@ -4,10 +4,14 @@
 PID=$(pidof rmiregistry)
 if [ -z "$PID" ]
 then
-  echo "Lancement du registre RMI ..."
   rmiregistry &
+  PID=$!
+  echo "Registre RMI lancé avec PID : $PID"
 else
+  echo "Arrêt du registre RMI avec PID : $PID"
   kill -9 "$PID"
   rmiregistry &
-  echo "Redémarrage du registre RMI ..."
+  NEW_PID=$!
+  echo "Redémarrage du registre RMI avec nouveau PID : $NEW_PID"
 fi
+

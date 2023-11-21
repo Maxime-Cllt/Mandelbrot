@@ -2,9 +2,10 @@
 
 ## Aperçu
 
-Ce projet implémente la génération de l'ensemble de Mandelbrot en utilisant 
-une approche de calcul distribué avec Java RMI. L'ensemble de Mandelbrot est un 
-fractal célèbre en mathématiques et cette implémentation permet le calcul parallèle de l'ensemble en utilisant une architecture distribuée.
+Ce projet implémente la génération de l'ensemble de Mandelbrot en utilisant
+une approche de calcul distribué avec Java RMI. L'ensemble de Mandelbrot est un
+fractal célèbre en mathématiques et cette implémentation permet le calcul parallèle de l'ensemble en utilisant une
+architecture distribuée.
 
 ## Fonctionnalités
 
@@ -12,7 +13,8 @@ fractal célèbre en mathématiques et cette implémentation permet le calcul pa
 
 - **Génération de l'Ensemble de Mandelbrot :** Calcule et visualise l'ensemble de Mandelbrot en parallèle.
 
-- **Paramètres Configurables :** Configurez facilement la résolution, le niveau de zoom et d'autres paramètres pour explorer différentes parties de l'ensemble de Mandelbrot.
+- **Paramètres Configurables :** Configurez facilement la résolution, le niveau de zoom et d'autres paramètres pour
+  explorer différentes parties de l'ensemble de Mandelbrot.
 
 ## Prérequis
 
