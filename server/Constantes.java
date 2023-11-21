@@ -3,8 +3,8 @@ package server;
 public class Constantes {
 
     //Taille de la frame où on affiche l'image
-    public static int WIDTH = 600;
-    public static int HEIGHT = 300;
+    public static int WIDTH = 500;
+    public static int HEIGHT = 250;
     //Intervalle de calcul du module de mandelbrot (en x et en y)
     public static Complexe WIDTH_COMPLEXE = new Complexe(-2, 1);
     public static Complexe HEIGHT_COMPLEXE = new Complexe(1, -1);
@@ -13,6 +13,7 @@ public class Constantes {
     //Intervalle de l'image en x et en y
     public static double INTERVALLE_FRAME_WIDTH = (Math.max(WIDTH_COMPLEXE.getA(), HEIGHT_COMPLEXE.getA()) - Math.min(WIDTH_COMPLEXE.getA(), HEIGHT_COMPLEXE.getA()));
     public static double INTERVALLE_FRAME_HEIGHT = (Math.max(WIDTH_COMPLEXE.getB(), HEIGHT_COMPLEXE.getB()) - Math.min(WIDTH_COMPLEXE.getB(), HEIGHT_COMPLEXE.getB()));
+
     //Décalage de l'image en x et en y
     public static double DECAL_IMAGE_X = Math.min(WIDTH_COMPLEXE.getA(), HEIGHT_COMPLEXE.getA());
     public static double DECAL_IMAGE_Y = Math.min(WIDTH_COMPLEXE.getB(), HEIGHT_COMPLEXE.getB());

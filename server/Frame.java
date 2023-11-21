@@ -34,15 +34,21 @@ public class Frame extends JFrame {
                 System.out.println("FROM X: " + evt.getX() + " Y: " + evt.getY());
                 pressed = new Point(evt.getX(), evt.getY());
                 complexe1 = convert(pressed);
-                System.out.println("Complexe1: " + complexe1);
+                System.out.println(" FROM Complexe1: " + complexe1);
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                System.out.println(" TO X: " + evt.getX() + " Y: " + evt.getY());
+                System.out.println("TO X: " + evt.getX() + " Y: " + evt.getY());
                 released = new Point(evt.getX(), evt.getY());
                 complexe2 = convert(released);
                 System.out.println("Complexe2: " + complexe2);
+
+                //on modifie les coordonnées de l'intervalle complexe lors d'un zoom
+                Constantes.WIDTH_COMPLEXE = complexe1;
+                Constantes.HEIGHT_COMPLEXE = complexe2;
+                //On modifie l'intervalle d'affichage de l'image dans le plan complexe
+                Constantes.calculCoordPlan();
 
                 try {
                     Serveur.drawImage();

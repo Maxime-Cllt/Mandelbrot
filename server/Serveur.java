@@ -93,6 +93,7 @@ public class Serveur {
         //Reset des données pour que le client traite les points.
         bagOfTask.taskDone.clear();
         bagOfTask.sizeOfTask = -1;
+
         System.out.println("Serveur prêt, connectez-vous au client pour commencer le calcul de l'image...");
 
         //Le serveur attend que les clients aient traité tous les points
