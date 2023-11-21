@@ -3,8 +3,8 @@ package server;
 public class Constantes {
 
     //Taille de la frame où on affiche l'image
-    public static int WIDTH = 500;
-    public static int HEIGHT = 250;
+    public static int WIDTH = 1080;
+    public static int HEIGHT = 720;
     //Intervalle de calcul du module de mandelbrot (en x et en y)
     public static Complexe WIDTH_COMPLEXE = new Complexe(-2, 1);
     public static Complexe HEIGHT_COMPLEXE = new Complexe(1, -1);

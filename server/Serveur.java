@@ -15,7 +15,6 @@ public class Serveur {
     public static Frame frame;
     private static ImpMandelbrot bagOfTask;
 
-
     /**
      * Méthode main du serveur qui lance le serveur et la frame
      *
@@ -69,7 +68,6 @@ public class Serveur {
                 }
             }
 
-            frame.getPanel().listePointMandelbrot = bagOfTask.dataToDo;
 
             //Envois des données au registre
 //            Naming.rebind("Mandelbrot", bagOfTask);
@@ -100,32 +98,43 @@ public class Serveur {
         //Le serveur attend que les clients aient traité tous les points
         while (bagOfTask.dataToDo.size() > bagOfTask.sizeOfTask) {
             System.out.println("Progression :  [" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "] points traités");
+            frame.setTitle("[" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "]");
+            frame.getPanel().listePointMandelbrot = bagOfTask.dataToDo;
+            frame.getPanel().repaint();
             Thread.sleep(1500);
         }
 
+        final int maxDivergence = bagOfTask.getMax(); // Change this according to the maximum divergence you want to handle
+
+        for (int i = 0; i < bagOfTask.dataToDo.size(); i++) {
+            bagOfTask.dataToDo.get(i).setColor(getColorForDivergence(bagOfTask.dataToDo.get(i).getDivergence(), maxDivergence));
+        }
+
+        frame.getPanel().listePointMandelbrot = bagOfTask.dataToDo;
 
         //Début du calcul de l'image
         System.out.println("Début calcul de l'image...");
         Thread.sleep(10);
         frame.getPanel().repaint();
-//        System.out.println("Max : " + (bagOfTask.getMax()));
         System.out.println("Image terminé");
+        frame.setTitle("Mandelbrot");
         frame.setStateFrame(true);
 
     }
 
-    private static Color getColorForDivergence(int divergence) throws RemoteException {
-        int maxDivergence = bagOfTask.getMax(); // Changer ceci en fonction de la divergence maximale que vous souhaitez gérer
+    private static Color getColorForDivergence(final int divergence, final int maxDivergence) throws RemoteException {
 
         if (divergence == maxDivergence) {
-            return new Color(255, 0, 0); // Couleur pour la divergence maximale
+            // Lighter color for maximum divergence
+            return new Color(182, 255, 214); // You can adjust these values based on your preference
         } else {
-            // Utiliser une formule pour calculer les composantes RGB en fonction de la divergence
-            int r = (divergence * 255 / maxDivergence) % 256;
-            int g = (divergence * 100 / maxDivergence) % 256;
-            int b = (divergence * 50 / maxDivergence) % 256;
+            // Use a formula to calculate RGB components based on divergence
+            int r = ((divergence + 1) * 200 / maxDivergence) % 256; // Adjust the multiplier and divisor for red component
+            int g = ((divergence + 1) * 150 / maxDivergence) % 256; // Adjust the multiplier and divisor for green component
+            int b = ((divergence + 1) * 100 / maxDivergence) % 256; // Adjust the multiplier and divisor for blue component
             return new Color(r, g, b);
         }
-    } // getColorForDivergence
+    }
+
 
 } // class Serveur

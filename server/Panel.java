@@ -14,7 +14,7 @@ public class Panel extends JPanel {
      * Constructeur de la classe Panneau qui initialise le fond en noir de la fenêtre de dessin
      */
     public Panel() {
-        this.setBackground(Color.black);
+        this.setBackground(Color.white);
         this.listePointMandelbrot = new ArrayList<>();
     }
 
@@ -24,8 +24,8 @@ public class Panel extends JPanel {
     public void paintComponent(Graphics graphics) {
         graphics.clearRect(0, 0, Constantes.WIDTH, Constantes.HEIGHT); // On efface tout sur le panneau
         for (Point p : listePointMandelbrot) {
-            graphics.setColor(p.getColor());
             graphics.drawLine(p.getX(), p.getY(), p.getX(), p.getY());
+            graphics.setColor(p.getColor());
         }
     }
 }

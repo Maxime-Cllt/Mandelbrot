@@ -7,6 +7,7 @@ public class Point implements Serializable {
 
     private int x, y;
     private Color color;
+    private int divergence;
 
     public Point() {
         this(0, 0, Color.black);
@@ -20,6 +21,7 @@ public class Point implements Serializable {
         this.x = x;
         this.y = y;
         this.color = color;
+        this.divergence = 0;
     }
 
     /********************
@@ -42,6 +44,14 @@ public class Point implements Serializable {
         this.y = newY;
     }
 
+    public int getDivergence() {
+        return this.divergence;
+    }
+
+    public void setDivergence(int newDivergence) {
+        this.divergence = newDivergence;
+    }
+
     public Color getColor() {
         return this.color;
     }
@@ -52,7 +62,7 @@ public class Point implements Serializable {
 
     @Override
     public String toString() {
-        return "(" + this.x + ";" + this.y + ")";
+        return "(" + this.x + ";" + this.y + ")" + " Color: " + this.color;
     }
 
 }

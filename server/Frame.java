@@ -4,6 +4,8 @@ import server.obj.Point;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Random;
 
 public class Frame extends JFrame {
 
@@ -19,7 +21,9 @@ public class Frame extends JFrame {
         this.setSize(width, height);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+//        this.setResizable(false);
+
+        initMenu();
 
         JPanel container = new JPanel();
         container.setLayout(new BorderLayout());
@@ -34,7 +38,7 @@ public class Frame extends JFrame {
                 System.out.println("FROM X: " + evt.getX() + " Y: " + evt.getY());
                 pressed = new Point(evt.getX(), evt.getY());
                 complexe1 = convert(pressed);
-                System.out.println(" FROM Complexe1: " + complexe1);
+                System.out.println("FROM Complexe 1: " + complexe1);
             }
 
             @Override
@@ -42,7 +46,7 @@ public class Frame extends JFrame {
                 System.out.println("TO X: " + evt.getX() + " Y: " + evt.getY());
                 released = new Point(evt.getX(), evt.getY());
                 complexe2 = convert(released);
-                System.out.println("Complexe2: " + complexe2);
+                System.out.println("Complexe 2: " + complexe2);
 
                 //on modifie les coordonnées de l'intervalle complexe lors d'un zoom
                 Constantes.WIDTH_COMPLEXE = complexe1;
@@ -66,9 +70,73 @@ public class Frame extends JFrame {
         return this.panel;
     }
 
+    private void initMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu_option = new JMenu("Options");
+        JMenuItem reset = new JMenuItem("Reset");
+        JMenuItem zoom = new JMenuItem("Zoom");
+        JMenuItem exec = new JMenuItem("Exec");
+
+
+        /**
+         * Reset du zoom sur l'image de base
+         */
+        reset.addActionListener(e -> {
+            System.out.println("RESET ZOOM");
+            Constantes.WIDTH_COMPLEXE.setA(-2);
+            Constantes.WIDTH_COMPLEXE.setB(1);
+            Constantes.HEIGHT_COMPLEXE.setA(1);
+            Constantes.HEIGHT_COMPLEXE.setB(-1);
+            Constantes.calculCoordPlan();
+            try {
+                Serveur.drawImage();
+            } catch (Exception exe) {
+                exe.printStackTrace();
+            }
+        });
+
+        /**
+         * Zoom sur la zone aléatoire
+         */
+        zoom.addActionListener(e -> {
+            Constantes.WIDTH_COMPLEXE = convert(new Point(new Random().nextInt(Constantes.WIDTH), new Random().nextInt(Constantes.HEIGHT)));
+            Constantes.HEIGHT_COMPLEXE = convert(new Point(new Random().nextInt(Constantes.WIDTH), new Random().nextInt(Constantes.HEIGHT)));
+            //On modifie l'intervalle d'affichage de l'image dans le plan complexe
+            Constantes.calculCoordPlan();
+
+            try {
+                Serveur.drawImage();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        /**
+         * Exécution du script bash pour lancer les clients
+         */
+        exec.addActionListener(e -> {
+            try {
+                String scriptPath = System.getProperty("user.dir") + "/exec.sh";
+                ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath);
+                Process process = processBuilder.start();
+                if (process.waitFor() != 0) System.out.println("Execution échouée");
+            } catch (IOException | InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        menu_option.add(exec);
+        menu_option.add(reset);
+        menu_option.add(zoom);
+
+//        menu_help.add(exec);
+
+        menuBar.add(menu_option);
+        this.setJMenuBar(menuBar);
+    }
 
     public void setStateFrame(boolean state) {
-        this.setEnabled(state);
+        this.panel.setEnabled(state);
     }
 
     /**

@@ -49,6 +49,7 @@ public class ImpTask extends UnicastRemoteObject implements Task {
         }
         // On attribue une couleur en fonction de la divergence.
         pointToDo.setColor(getColorForDivergence(divergence));
+        pointToDo.setDivergence(divergence);
     }
 
 

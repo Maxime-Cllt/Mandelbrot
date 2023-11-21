@@ -35,9 +35,9 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
 
     public int getMax() throws RemoteException {
         int max = 0;
-        for (Task task : taskDone) {
-            if (task.getDivergence() > max) {
-                max = task.getDivergence();
+        for (Point point : dataToDo) {
+            if (point.getDivergence() > max) {
+                max = point.getDivergence();
             }
         }
         return max;
@@ -88,7 +88,7 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
 //                    "\"" +
 //                    ";" +
 //                    "\n";
-//            //System.out.println("nb de points avec une divergence de " + j + " est de " + i);
+//            //System.out.println("Nb de points avec une divergence de " + j + " est de " + i);
 //            j++;
 //            fw.write(line);
 //        }
