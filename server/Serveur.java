@@ -93,6 +93,7 @@ public class Serveur {
         //Reset des données pour que le client traite les points.
         bagOfTask.taskDone.clear();
         bagOfTask.sizeOfTask = -1;
+        frame.setStateFrame(false);
 
         System.out.println("Serveur prêt, connectez-vous au client pour commencer le calcul de l'image...");
 
@@ -103,13 +104,13 @@ public class Serveur {
         }
 
 
-
         //Début du calcul de l'image
         System.out.println("Début calcul de l'image...");
         Thread.sleep(10);
         frame.getPanel().repaint();
 //        System.out.println("Max : " + (bagOfTask.getMax()));
         System.out.println("Image terminé");
+        frame.setStateFrame(true);
 
     }
 

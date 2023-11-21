@@ -66,6 +66,11 @@ public class Frame extends JFrame {
         return this.panel;
     }
 
+
+    public void setStateFrame(boolean state) {
+        this.setEnabled(state);
+    }
+
     /**
      * Convertit un point en son équivalent complexe dans l'intervalle donné
      *
