@@ -27,3 +27,19 @@ architecture distribuée.
 
    ```bash
    git clone https://github.com/Maxime-Cllt/Mandelbrot.git
+    ```
+2. **Serveur :**
+
+    Il faut d'abord lancer le serveur sur la machine qui va afficher l'ensemble de Mandelbrot.
+
+   ```bash
+   make
+   ```
+
+3. **Client :**
+
+    Cette commande va lancer le client qui va se connecter au serveur et lancer les calculs.
+
+   ```bash
+   ./exec.sh
+   ```
