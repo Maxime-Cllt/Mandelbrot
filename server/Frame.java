@@ -8,6 +8,10 @@ import java.awt.*;
 public class Frame extends JFrame {
 
     private final Panel panel = new Panel();
+    public server.obj.Point pressed = new server.obj.Point();
+    public server.obj.Point released = new server.obj.Point();
+    public Complexe complexe1 = new Complexe();
+    public Complexe complexe2 = new Complexe();
 
     public Frame(int width, int height) {
 
@@ -28,11 +32,17 @@ public class Frame extends JFrame {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 System.out.println("FROM X: " + evt.getX() + " Y: " + evt.getY());
+                pressed = new Point(evt.getX(), evt.getY());
+                complexe1 = convert(pressed);
+                System.out.println("Complexe1: " + complexe1);
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 System.out.println(" TO X: " + evt.getX() + " Y: " + evt.getY());
+                released = new Point(evt.getX(), evt.getY());
+                complexe2 = convert(released);
+                System.out.println("Complexe2: " + complexe2);
             }
 
         });

@@ -1,4 +1,5 @@
 all:
+	clear
 	# Compilation des fichiers java
 	javac server/*.java
 	javac server/obj/*.java

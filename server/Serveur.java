@@ -2,7 +2,6 @@ package server;
 
 import server.obj.ImpMandelbrot;
 import server.obj.Point;
-import server.obj.Task;
 
 import java.awt.*;
 import java.rmi.RemoteException;
@@ -28,7 +27,6 @@ public class Serveur {
      *             args[5] = partie réelle de l'intervalle de l'image
      *             args[6] = partie imaginaire de l'intervalle de l'image
      *             ex: Server 300 200 100 -2 1 1 -1
-     * @throws Exception
      */
 
     public static void main(String[] args) throws RemoteException {
@@ -103,23 +101,15 @@ public class Serveur {
             Thread.sleep(1500);
         }
 
-//        System.out.println("Tous les points ont été traités, début de l'affichage de l'image...");
-//        for (Task task : bagOfTask.taskDone) {
-//            task.getPointToDo().setColor(Serveur.getColorForDivergence(task.getDivergence()));
-//        }
+
 
         //Début du calcul de l'image
         System.out.println("Début calcul de l'image...");
-
         Thread.sleep(10);
         frame.getPanel().repaint();
-
-        System.out.println("Max : " + (bagOfTask.getMax()));
-
+//        System.out.println("Max : " + (bagOfTask.getMax()));
         System.out.println("Image terminé");
 
-
-//        calculComplexite();
     }
 
     private static Color getColorForDivergence(int divergence) throws RemoteException {
