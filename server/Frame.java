@@ -43,6 +43,12 @@ public class Frame extends JFrame {
                 released = new Point(evt.getX(), evt.getY());
                 complexe2 = convert(released);
                 System.out.println("Complexe2: " + complexe2);
+
+                try {
+                    Serveur.drawImage();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         });

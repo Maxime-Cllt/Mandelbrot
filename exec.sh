@@ -1,6 +1,8 @@
 #!/bin/bash
 clear
-for (( i=1; i<=12; i++))
+total_cores=$(nproc)
+for ((i=0; i<total_cores; i++))
 do
-    java client.Client &
+    taskset -c "$i" java client.Client &
 done
+wait

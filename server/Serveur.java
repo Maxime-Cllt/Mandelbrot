@@ -88,7 +88,7 @@ public class Serveur {
      *
      * @throws Exception
      */
-    private static void drawImage() throws Exception {
+    public static void drawImage() throws Exception {
 
         //Reset des données pour que le client traite les points.
         bagOfTask.taskDone.clear();
