@@ -78,7 +78,7 @@ public class Frame extends JFrame {
         JMenuItem exec = new JMenuItem("Exec");
 
 
-        /**
+        /*
          * Reset du zoom sur l'image de base
          */
         reset.addActionListener(e -> {
@@ -95,7 +95,7 @@ public class Frame extends JFrame {
             }
         });
 
-        /**
+        /*
          * Zoom sur la zone aléatoire
          */
         zoom.addActionListener(e -> {
@@ -111,15 +111,15 @@ public class Frame extends JFrame {
             }
         });
 
-        /**
-         * Exécution du script bash pour lancer les clients
+        /*
+          Exécution du script bash pour lancer les clients
          */
         exec.addActionListener(e -> {
             try {
                 String scriptPath = System.getProperty("user.dir") + "/exec.sh";
                 ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath);
                 Process process = processBuilder.start();
-                if (process.waitFor() != 0) System.out.println("Execution échouée");
+                exec.setBackground(process.waitFor() == 0 ? Color.GREEN : Color.RED);
             } catch (IOException | InterruptedException ex) {
                 ex.printStackTrace();
             }
@@ -128,8 +128,6 @@ public class Frame extends JFrame {
         menu_option.add(exec);
         menu_option.add(reset);
         menu_option.add(zoom);
-
-//        menu_help.add(exec);
 
         menuBar.add(menu_option);
         this.setJMenuBar(menuBar);

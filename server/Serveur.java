@@ -97,11 +97,11 @@ public class Serveur {
 
         //Le serveur attend que les clients aient traité tous les points
         while (bagOfTask.dataToDo.size() > bagOfTask.sizeOfTask) {
-            System.out.println("Progression :  [" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "] points traités");
+//            System.out.println("Progression :  [" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "] points traités");
             frame.setTitle("[" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "]");
             frame.getPanel().listePointMandelbrot = bagOfTask.dataToDo;
             frame.getPanel().repaint();
-            Thread.sleep(1500);
+            Thread.sleep(500);
         }
 
         final int maxDivergence = bagOfTask.getMax(); // Change this according to the maximum divergence you want to handle
@@ -114,7 +114,7 @@ public class Serveur {
 
         //Début du calcul de l'image
         System.out.println("Début calcul de l'image...");
-        Thread.sleep(10);
+        Thread.sleep(30);
         frame.getPanel().repaint();
         System.out.println("Image terminé");
         frame.setTitle("Mandelbrot");
@@ -122,7 +122,7 @@ public class Serveur {
 
     }
 
-    private static Color getColorForDivergence(final int divergence, final int maxDivergence) throws RemoteException {
+    private static Color getColorForDivergence(final int divergence, final int maxDivergence) {
 
         if (divergence == maxDivergence) {
             // Lighter color for maximum divergence
