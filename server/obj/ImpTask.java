@@ -9,8 +9,12 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ImpTask extends UnicastRemoteObject implements Task {
 
-    public Point pointToDo;
-    public int divergence;
+    private static final double ONE_SIXTEENTH = 1.0 / 16.0;
+    private static final double ONE_FOURTH = 1.0 / 4.0;
+    private final Point pointToDo;
+    private int divergence;
+    private final Color BLACK = new Color(0, 0, 0);
+    private final Color WHITE = new Color(255, 255, 255);
 
     public ImpTask(Point point) throws RemoteException {
         super();
@@ -19,67 +23,69 @@ public class ImpTask extends UnicastRemoteObject implements Task {
     }
 
     public void run() throws RemoteException {
-
         Complexe z = new Complexe(0, 0);
         Complexe complexe = convert(pointToDo);
 
-        //Verification d'appartenance au cercle de rayon 1/2.
-        double verif1 = Math.pow(complexe.getA() + 1., 2) + Math.pow(complexe.getB(), 2);
+        final double complexeASquared = complexe.getA() * complexe.getA();
+        final double complexeBSquared = complexe.getB() * complexe.getB();
+        final double p = Math.sqrt(Math.pow(complexe.getA() - (ONE_FOURTH), 2) + Math.pow(complexe.getB(), 2));
+        final double pSquared = Math.pow(p, 2);
+        final double verif1 = (complexeASquared + 1.0) + complexeBSquared;
+        final double verif2 = Math.sqrt((complexeASquared - ONE_FOURTH) + complexeBSquared) - (2 * pSquared) + ONE_FOURTH;
 
-        //Verification d'appartenance à la cardioïde (le coeur)
-        double p = Math.sqrt(Math.pow(complexe.getA() - (1. / 4.), 2) + Math.pow(complexe.getB(), 2));
-        double verif2 = p - (2 * Math.pow(p, 2)) + (1. / 4.);
-
-        if (verif1 >= (1. / 16.) || complexe.getA() >= verif2) {
-
-            for (int n = 0; n < Constantes.LIMIT; n++) {
-
+        /*if (verif1 >= ONE_SIXTEENTH || complexe.getA() >= verif2) {
+            for (int n = 0; n < Constantes.LIMIT; n += 2) {
                 if (z.module() > 2) {
-
-                    /*
-                     * Le cas où z0 a un module supérieur à 2 fait que le point c a une divergence de 0,
-                     * comme les points appartenant à Mandelbrot, cependant, comme z0 vaut 0+0i le module ne peut pas être supérieur à 2
-                     */
                     divergence = n;
                     break;
                 }
+
+                z = z.multiply(z);
+                z = z.add(complexe);
+
+                if (z.module() > 2) {
+                    divergence = n + 1;
+                    break;
+                }
+
                 z = z.multiply(z);
                 z = z.add(complexe);
             }
+        }*/
+
+        if (verif1 >= ONE_SIXTEENTH || complexe.getA() >= verif2) {
+            final int limit = Constantes.LIMIT;
+            int n = 0;
+
+            // Batch processing
+            while (n < limit) {
+                if (z.module() > 2) {
+                    divergence = n;
+                    break;
+                }
+
+                z = z.multiply(z);
+                z = z.add(complexe);
+
+                if (z.module() > 2) {
+                    divergence = n + 1;
+                    break;
+                }
+
+                z = z.multiply(z);
+                z = z.add(complexe);
+
+                n += 2;
+            }
         }
-        // On attribue une couleur en fonction de la divergence.
+
         pointToDo.setColor(getColorForDivergence(divergence));
         pointToDo.setDivergence(divergence);
     }
 
-
-    /**
-     * Retourne la couleur en fonction de la divergence du point. Plus la divergence est grande, plus la couleur est rouge.
-     *
-     * @param divergence la divergence du point
-     * @return la couleur du point
-     */
     private Color getColorForDivergence(int divergence) {
-
-        return switch (divergence) {
-            case 0 -> new Color(0, 0, 0);
-            case 1 -> new Color(97, 229, 52);
-            case 2 -> new Color(8, 239, 158);
-            case 3 -> new Color(8, 12, 239);
-            case 4 -> new Color(239, 8, 235);
-            case 5 -> new Color(66, 239, 8);
-            case 6 -> new Color(239, 158, 8);
-            case 7 -> new Color(8, 238, 209);
-            case 8 -> new Color(8, 239, 158);
-            case 9 -> new Color(8, 12, 239);
-            case 10 -> new Color(239, 8, 235);
-            case 11 -> new Color(66, 239, 8);
-            case 12 -> new Color(239, 158, 8);
-            case 13 -> new Color(8, 238, 209);
-            default -> new Color(255, 0, 0);
-        };
+        return (divergence == 0) ? WHITE : BLACK;
     }
-
 
     public int getDivergence() throws RemoteException {
         return this.divergence;
@@ -94,14 +100,7 @@ public class ImpTask extends UnicastRemoteObject implements Task {
         return this.pointToDo;
     }
 
-    /**
-     * Convertit un point de l'image en un point du plan complexe.
-     *
-     * @param p le point de l'image
-     * @return le point du plan complexe
-     */
     public Complexe convert(Point p) {
-        return new Complexe(p.getX() * (Constantes.INTERVALLE_FRAME_WIDTH / (double) Constantes.WIDTH) + Constantes.DECAL_IMAGE_X,
-                p.getY() * (Constantes.INTERVALLE_FRAME_HEIGHT / (double) Constantes.HEIGHT) + Constantes.DECAL_IMAGE_Y);
+        return new Complexe(p.getX() * (Constantes.INTERVALLE_FRAME_WIDTH / (double) Constantes.WIDTH) + Constantes.DECAL_IMAGE_X, p.getY() * (Constantes.INTERVALLE_FRAME_HEIGHT / (double) Constantes.HEIGHT) + Constantes.DECAL_IMAGE_Y);
     }
 }
