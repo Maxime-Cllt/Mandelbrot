@@ -7,7 +7,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Random;
 
-public class Frame extends JFrame {
+public class Frame extends javax.swing.JFrame {
 
     private final Panel panel = new Panel();
     public server.obj.Point pressed = new server.obj.Point();

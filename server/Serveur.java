@@ -90,31 +90,31 @@ public class Serveur {
 
         //Reset des données pour que le client traite les points.
         bagOfTask.taskDone.clear();
-        bagOfTask.sizeOfTask = -1;
+        bagOfTask.sizeOfTask = 0;
         frame.setStateFrame(false);
 
         System.out.println("Serveur prêt, connectez-vous au client pour commencer le calcul de l'image...");
 
         //Le serveur attend que les clients aient traité tous les points
         while (bagOfTask.dataToDo.size() > bagOfTask.sizeOfTask) {
-//            System.out.println("Progression :  [" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "] points traités");
-            frame.setTitle("[" + bagOfTask.sizeOfTask + "/" + bagOfTask.dataToDo.size() + "]");
-            frame.getPanel().listePointMandelbrot = bagOfTask.dataToDo;
+            frame.setTitle("[ " + bagOfTask.sizeOfTask + " / " + bagOfTask.dataToDo.size() + " ]");
+            frame.getPanel().setListePointMandelbrot(bagOfTask.dataToDo);
             frame.getPanel().repaint();
-            Thread.sleep(500);
+            Thread.sleep(750);
         }
 
-        final int maxDivergence = bagOfTask.getMax(); // Change this according to the maximum divergence you want to handle
+        final int maxDivergence = bagOfTask.getMax();
 
-        for (int i = 0; i < bagOfTask.dataToDo.size(); i++) {
-            bagOfTask.dataToDo.get(i).setColor(getColorForDivergence(bagOfTask.dataToDo.get(i).getDivergence(), maxDivergence));
-        }
+        bagOfTask.dataToDo.parallelStream().forEach(point -> {
+            point.setColor(getColorForDivergence(point.getDivergence(), maxDivergence));
+//            point.setColor(getColorDefault(point.getDivergence()));
+        });
 
-        frame.getPanel().listePointMandelbrot = bagOfTask.dataToDo;
+        frame.getPanel().setListePointMandelbrot(bagOfTask.dataToDo);
 
         //Début du calcul de l'image
         System.out.println("Début calcul de l'image...");
-        Thread.sleep(30);
+        Thread.sleep(15);
         frame.getPanel().repaint();
         System.out.println("Image terminé");
         frame.setTitle("Mandelbrot");
@@ -123,18 +123,14 @@ public class Serveur {
     }
 
     private static Color getColorForDivergence(final int divergence, final int maxDivergence) {
-
         if (divergence == maxDivergence) {
-            // Lighter color for maximum divergence
-            return new Color(182, 255, 214); // You can adjust these values based on your preference
+            return new Color(182, 255, 214);
         } else {
-            // Use a formula to calculate RGB components based on divergence
-            int r = ((divergence + 1) * 200 / maxDivergence) % 256; // Adjust the multiplier and divisor for red component
-            int g = ((divergence + 1) * 150 / maxDivergence) % 256; // Adjust the multiplier and divisor for green component
-            int b = ((divergence + 1) * 100 / maxDivergence) % 256; // Adjust the multiplier and divisor for blue component
+            final int r = Math.min((divergence + 1) * 8, 255);
+            final int g = Math.min((divergence + 1) * 6, 255);
+            final int b = Math.min((divergence + 1) * 4, 255);
             return new Color(r, g, b);
         }
     }
-
 
 } // class Serveur

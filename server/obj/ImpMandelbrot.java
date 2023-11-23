@@ -20,7 +20,7 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
         super();
         dataToDo = new ArrayList<>();
         taskDone = new ArrayList<>();
-        sizeOfTask = -1;
+        sizeOfTask = 0;
     }
 
     /**
