@@ -47,4 +47,12 @@ public class Constantes {
         DECAL_IMAGE_X = Math.min(WIDTH_COMPLEXE.getA(), HEIGHT_COMPLEXE.getA());
         DECAL_IMAGE_Y = Math.min(WIDTH_COMPLEXE.getB(), HEIGHT_COMPLEXE.getB());
     }
+
+    public static void displayInfo(){
+        System.out.println("-----------------------------------");
+        System.out.println("Résolution de la frame: " + Constantes.WIDTH + "x" + Constantes.HEIGHT + "\nLimite de calcul: " + Constantes.LIMIT);
+        System.out.print("Les intervalles complexe sont: (" + Constantes.WIDTH_COMPLEXE.getA() + ";" + Constantes.HEIGHT_COMPLEXE.getA() + ") sur l'axe des réels");
+        System.out.println(" et (" + Constantes.HEIGHT_COMPLEXE.getB() + ";" + Constantes.WIDTH_COMPLEXE.getB() + ") sur l'axe des imaginaires");
+        System.out.println("-----------------------------------");
+    }
 }

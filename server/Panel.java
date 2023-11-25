@@ -2,13 +2,12 @@ package server;
 
 import server.obj.Point;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Panel extends JPanel {
+public class Panel extends javax.swing.JPanel {
 
     private final ArrayList<Point> listePointMandelbrot;
     private final BufferedImage image;

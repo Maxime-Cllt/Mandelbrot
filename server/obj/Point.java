@@ -5,13 +5,14 @@ import java.io.Serializable;
 
 public class Point implements Serializable {
 
-    private int x, y;
+    private final int x;
+    private final int y;
     private Color color;
     private short divergence;
 
-    public Point() {
-        this(0, 0, Color.black);
-    }
+    /***************
+     * CONSTRUCTORS
+     **************/
 
     public Point(int x, int y) {
         this(x, y, Color.black);

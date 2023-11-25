@@ -15,22 +15,12 @@ public final class Complexe {
     /**
      * Constructeur de la classe Complexe qui prend en paramètre deux doubles
      *
-     * @param newA
-     * @param newB
+     * @param newA (double) les deux doubles qui vont initialiser les deux doubles de la classe
+     * @param newB (double) les deux doubles qui vont initialiser les deux doubles de la classe
      */
     public Complexe(double newA, double newB) {
         this.a = newA;
         this.b = newB;
-    }
-
-    /**
-     * Constructeur de la classe Complexe qui prend en paramètre un complexe
-     *
-     * @param complexe
-     */
-    public Complexe(Complexe complexe) {
-        this.a = complexe.getA();
-        this.b = complexe.getB();
     }
 
     /**
@@ -40,10 +30,10 @@ public final class Complexe {
      * @return un nouveau complexe qui est le produit des deux complexes (Complexe)
      */
     public Complexe multiply(Complexe complexe) {
-        double a1 = this.getA();
-        double b1 = this.getB();
-        double a2 = complexe.getA();
-        double b2 = complexe.getB();
+        final double a1 = this.getA();
+        final double b1 = this.getB();
+        final double a2 = complexe.getA();
+        final double b2 = complexe.getB();
         return new Complexe((a1 * a2 - b1 * b2), (a1 * b2 + b1 * a2));
     }
 
@@ -58,7 +48,7 @@ public final class Complexe {
     }
 
     /**
-     * Méthode qui calcule le module d'un complexe
+     * Méthode qui calcule la différence de deux complexes
      *
      * @return le module du complexe en double arrondi à 2 chiffres après la virgule (double)
      */

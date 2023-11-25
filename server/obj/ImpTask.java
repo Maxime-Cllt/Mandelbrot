@@ -15,7 +15,7 @@ public class ImpTask extends UnicastRemoteObject implements Task {
     private final Point pointToDo;
     private int divergence;
 
-    public ImpTask(Point point) throws RemoteException {
+    public ImpTask(final Point point) throws RemoteException {
         super();
         pointToDo = point;
         divergence = 0;
@@ -33,10 +33,9 @@ public class ImpTask extends UnicastRemoteObject implements Task {
 
         if (verif1 >= ONE_SIXTEENTH || complexe.getA() >= verif2) {
             final int limit = Constantes.LIMIT;
-            int n = 0;
 
-            // Batch processing
-            while (n < limit) {
+            for (int n = 0; n < limit; n += 2) {
+
                 if (z.module() > 2) {
                     divergence = n;
                     break;
@@ -51,7 +50,6 @@ public class ImpTask extends UnicastRemoteObject implements Task {
 
                 z = z.multiply(z).add(complexe);
 
-                n += 2;
             }
         }
 
@@ -59,7 +57,7 @@ public class ImpTask extends UnicastRemoteObject implements Task {
         pointToDo.setDivergence((short) divergence);
     }
 
-    private static Color getColorForDivergence(int divergence) {
+    private static Color getColorForDivergence(final int divergence) {
         return (divergence == 0) ? WHITE : BLACK;
     }
 
@@ -70,7 +68,7 @@ public class ImpTask extends UnicastRemoteObject implements Task {
      * @param p Point à convertir
      * @return Complexe
      */
-    public Complexe convert(Point p) {
+    public Complexe convert(final Point p) {
         return new Complexe(
                 p.getX() * (Constantes.INTERVALLE_FRAME_WIDTH / Constantes.WIDTH) + Constantes.DECAL_IMAGE_X,
                 p.getY() * (Constantes.INTERVALLE_FRAME_HEIGHT / Constantes.HEIGHT) + Constantes.DECAL_IMAGE_Y

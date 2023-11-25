@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class Client {
 
-    private static AtomicBoolean run = new AtomicBoolean(true);
+    private static final AtomicBoolean run = new AtomicBoolean(true);
 
     public static void main(String[] args) {
 

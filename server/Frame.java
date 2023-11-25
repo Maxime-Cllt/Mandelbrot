@@ -40,17 +40,12 @@ public class Frame extends javax.swing.JFrame {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 System.out.println("TO X: " + evt.getX() + " Y: " + evt.getY());
                 complexe2 = convert(new Point(evt.getX(), evt.getY()));
-
                 //on modifie les coordonnées de l'intervalle complexe lors d'un zoom
                 Constantes.WIDTH_COMPLEXE = complexe1;
                 Constantes.HEIGHT_COMPLEXE = complexe2;
                 //On modifie l'intervalle d'affichage de l'image dans le plan complexe
                 Constantes.calculCoordPlan();
-                try {
-                    Serveur.drawImage();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                Serveur.drawImage();
             }
 
         });
@@ -97,12 +92,7 @@ public class Frame extends javax.swing.JFrame {
             Constantes.HEIGHT_COMPLEXE = convert(new Point(new Random().nextInt(Constantes.WIDTH), new Random().nextInt(Constantes.HEIGHT)));
             //On modifie l'intervalle d'affichage de l'image dans le plan complexe
             Constantes.calculCoordPlan();
-
-            try {
-                Serveur.drawImage();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
+            Serveur.drawImage();
         });
 
         /*
@@ -120,7 +110,7 @@ public class Frame extends javax.swing.JFrame {
         });
 
         info.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, Serveur.numberOfTaskDone +  (Serveur.numberOfTaskDone > 1 ? " calculs" : " calcul"), "Statistiques", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, Serveur.numberOfTaskDone + (Serveur.numberOfTaskDone > 1 ? " calculs" : " calcul"), "Statistiques", JOptionPane.INFORMATION_MESSAGE);
         });
 
         menu_option.add(exec);

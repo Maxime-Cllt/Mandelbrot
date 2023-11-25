@@ -29,15 +29,15 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
      * @param point Point à ajouter à la liste des tâches à traiter (dataToDo)
      * @throws RemoteException
      */
-    public void addTask(Point point) throws RemoteException {
+    public void addTask(final Point point) throws RemoteException {
         dataToDo.add(point);
     }
 
-    public int getMax() throws RemoteException {
-        int max = 0;
+    public short getMax() throws RemoteException {
+        short max = 0;
         for (Point point : dataToDo) {
             if (point.getDivergence() > max) {
-                max = point.getDivergence();
+                max = (short) point.getDivergence();
             }
         }
         return max;
@@ -61,7 +61,7 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
      * @param task Task à ajouter à la liste des tâches traitées
      * @throws RemoteException
      */
-    public void addResult(Task task) throws RemoteException {
+    public void addResult(final Task task) throws RemoteException {
         taskDone.add(task);
     }
 

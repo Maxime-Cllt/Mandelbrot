@@ -9,8 +9,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Serveur {
 
@@ -41,22 +39,14 @@ public class Serveur {
 
         arrArgs = null;
 
-        System.out.println("-----------------------------------");
-        System.out.println("Résolution de la frame: " + Constantes.WIDTH + "x" + Constantes.HEIGHT + "\nLimite de calcul: " + Constantes.LIMIT);
-        System.out.print("Les intervalles complexe sont: (" + Constantes.WIDTH_COMPLEXE.getA() + ";" + Constantes.HEIGHT_COMPLEXE.getA() + ") sur l'axe des réels");
-        System.out.println(" et (" + Constantes.HEIGHT_COMPLEXE.getB() + ";" + Constantes.WIDTH_COMPLEXE.getB() + ") sur l'axe des imaginaires");
-        System.out.println("-----------------------------------");
-
+        Constantes.displayInfo();
         Registry registry = LocateRegistry.createRegistry(1099);
-
         frame = new Frame(Constantes.WIDTH, Constantes.HEIGHT);
 
         try {
             bagOfTask = new ImpMandelbrot();
             initPoints(bagOfTask);
-
             registry.rebind("Mandelbrot", bagOfTask);
-
             drawImage();
 
         } catch (Exception e) {
@@ -69,29 +59,25 @@ public class Serveur {
         try {
             final int width = Constantes.WIDTH;
             final int height = Constantes.HEIGHT;
-
             for (int i = 0; i <= width; i++) {
-                for (int j = 0; j <= height; j++) {
-                    bagOfTask.addTask(new Point(i, j));
-                }
+                for (int j = 0; j <= height; j++) bagOfTask.addTask(new Point(i, j));
             }
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void drawImage() throws Exception {
+    public static void drawImage() {
         bagOfTask.taskDone.clear();
         bagOfTask.sizeOfTask = 0;
         frame.setStateFrame(false);
 
         System.out.println("Serveur prêt, connectez-vous au client pour commencer le calcul de l'image...");
 
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-        long startTime = System.currentTimeMillis();
+        final long startTime = System.currentTimeMillis();
 
         try {
+
             while (bagOfTask.dataToDo.size() > bagOfTask.sizeOfTask) {
                 frame.setTitle("[ " + bagOfTask.sizeOfTask + " / " + bagOfTask.dataToDo.size() + " ]");
                 frame.getPanel().setListePointMandelbrot(bagOfTask.dataToDo);
@@ -115,8 +101,9 @@ public class Serveur {
             frame.setTitle("Mandelbrot");
             frame.setStateFrame(true);
             System.out.println("Temps d'exécution: " + (System.currentTimeMillis() - startTime) + "ms");
-        } finally {
-            executorService.shutdown();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
