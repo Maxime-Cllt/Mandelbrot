@@ -9,29 +9,19 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Serveur {
 
-    public static Frame frame;
+    private static Frame frame;
     private static ImpMandelbrot bagOfTask;
-
-    /**
-     * Méthode main du serveur qui lance le serveur et la frame
-     *
-     * @param args args[0] = largeur de la frame
-     *             args[1] = hauteur de la frame
-     *             args[2] = limite de calcul
-     *             args[3] = partie réelle de l'intervalle de calcul
-     *             args[4] = partie imaginaire de l'intervalle de calcul
-     *             args[5] = partie réelle de l'intervalle de l'image
-     *             args[6] = partie imaginaire de l'intervalle de l'image
-     *             ex: Server 300 200 100 -2 1 1 -1
-     */
+    public static long numberOfTaskDone = 0;
 
     public static void main(String[] args) throws RemoteException {
 
         ArrayList<String> arrArgs = new ArrayList<>(Arrays.asList(args));
-        System.out.println(arrArgs.size());
+
         if (arrArgs.size() == 3 || arrArgs.size() == 7) {
             Constantes.WIDTH = Integer.parseInt(args[0]);
             Constantes.HEIGHT = Integer.parseInt(args[1]);
@@ -49,6 +39,8 @@ public class Serveur {
             return;
         }
 
+        arrArgs = null;
+
         System.out.println("-----------------------------------");
         System.out.println("Résolution de la frame: " + Constantes.WIDTH + "x" + Constantes.HEIGHT + "\nLimite de calcul: " + Constantes.LIMIT);
         System.out.print("Les intervalles complexe sont: (" + Constantes.WIDTH_COMPLEXE.getA() + ";" + Constantes.HEIGHT_COMPLEXE.getA() + ") sur l'axe des réels");
@@ -60,17 +52,9 @@ public class Serveur {
         frame = new Frame(Constantes.WIDTH, Constantes.HEIGHT);
 
         try {
-            // Initialisation de la liste des points à traiter pour la frame
             bagOfTask = new ImpMandelbrot();
-            for (int i = 0; i <= Constantes.WIDTH; i++) {
-                for (int j = 0; j <= Constantes.HEIGHT; j++) {
-                    bagOfTask.addTask(new Point(i, j));
-                }
-            }
+            initPoints(bagOfTask);
 
-
-            //Envois des données au registre
-//            Naming.rebind("Mandelbrot", bagOfTask);
             registry.rebind("Mandelbrot", bagOfTask);
 
             drawImage();
@@ -81,45 +65,59 @@ public class Serveur {
         }
     }
 
-    /**
-     * Dessine l'image dans la frame et attend que les clients aient traité tous les points pour l'afficher
-     *
-     * @throws Exception
-     */
-    public static void drawImage() throws Exception {
+    private static void initPoints(ImpMandelbrot bagOfTask) {
+        try {
+            final int width = Constantes.WIDTH;
+            final int height = Constantes.HEIGHT;
 
-        //Reset des données pour que le client traite les points.
+            for (int i = 0; i <= width; i++) {
+                for (int j = 0; j <= height; j++) {
+                    bagOfTask.addTask(new Point(i, j));
+                }
+            }
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void drawImage() throws Exception {
         bagOfTask.taskDone.clear();
         bagOfTask.sizeOfTask = 0;
         frame.setStateFrame(false);
 
         System.out.println("Serveur prêt, connectez-vous au client pour commencer le calcul de l'image...");
 
-        //Le serveur attend que les clients aient traité tous les points
-        while (bagOfTask.dataToDo.size() > bagOfTask.sizeOfTask) {
-            frame.setTitle("[ " + bagOfTask.sizeOfTask + " / " + bagOfTask.dataToDo.size() + " ]");
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+        long startTime = System.currentTimeMillis();
+
+        try {
+            while (bagOfTask.dataToDo.size() > bagOfTask.sizeOfTask) {
+                frame.setTitle("[ " + bagOfTask.sizeOfTask + " / " + bagOfTask.dataToDo.size() + " ]");
+                frame.getPanel().setListePointMandelbrot(bagOfTask.dataToDo);
+                frame.getPanel().repaint();
+                Thread.sleep(500);
+            }
+
+            numberOfTaskDone += bagOfTask.sizeOfTask;
+            final int maxDivergence = bagOfTask.getMax();
+
+            bagOfTask.dataToDo.parallelStream().forEach(point -> {
+                point.setColor(getColorForDivergence(point.getDivergence(), maxDivergence));
+            });
+
             frame.getPanel().setListePointMandelbrot(bagOfTask.dataToDo);
+
+            System.out.println("Début calcul de l'image...");
+            Thread.sleep(15);
             frame.getPanel().repaint();
-            Thread.sleep(750);
+            System.out.println("Image terminé");
+            frame.setTitle("Mandelbrot");
+            frame.setStateFrame(true);
+            System.out.println("Temps d'exécution: " + (System.currentTimeMillis() - startTime) + "ms");
+        } finally {
+            executorService.shutdown();
         }
-
-        final int maxDivergence = bagOfTask.getMax();
-
-        bagOfTask.dataToDo.parallelStream().forEach(point -> {
-            point.setColor(getColorForDivergence(point.getDivergence(), maxDivergence));
-//            point.setColor(getColorDefault(point.getDivergence()));
-        });
-
-        frame.getPanel().setListePointMandelbrot(bagOfTask.dataToDo);
-
-        //Début du calcul de l'image
-        System.out.println("Début calcul de l'image...");
-        Thread.sleep(15);
-        frame.getPanel().repaint();
-        System.out.println("Image terminé");
-        frame.setTitle("Mandelbrot");
-        frame.setStateFrame(true);
-
     }
 
     private static Color getColorForDivergence(final int divergence, final int maxDivergence) {
@@ -132,5 +130,4 @@ public class Serveur {
             return new Color(r, g, b);
         }
     }
-
-} // class Serveur
+}

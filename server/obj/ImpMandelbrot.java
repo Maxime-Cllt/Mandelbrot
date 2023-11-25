@@ -2,13 +2,13 @@ package server.obj;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
 
-    public ArrayList<Point> dataToDo;
-    public ArrayList<Task> taskDone;
+    public LinkedList<Point> dataToDo;
+    public LinkedList<Task> taskDone;
     public int sizeOfTask;
 
     /**
@@ -18,8 +18,8 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
      */
     public ImpMandelbrot() throws RemoteException {
         super();
-        dataToDo = new ArrayList<>();
-        taskDone = new ArrayList<>();
+        dataToDo = new LinkedList<>();
+        taskDone = new LinkedList<>();
         sizeOfTask = 0;
     }
 
@@ -64,36 +64,5 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
     public void addResult(Task task) throws RemoteException {
         taskDone.add(task);
     }
-
-
-//    public static void calculComplexite() throws IOException {
-//        ArrayList<Integer> div = new ArrayList<>();
-//        for (int i = 0; i < 100; i++) {
-//            div.add(0);
-//        }
-//        for (Task t : bag.taskDone) {
-//            div.set(t.getDivergence(), div.get(t.getDivergence()) + 1);
-//        }
-//        int j = 0;
-//        // écrire dans un .csv
-//        File csv = new File("Complexite.csv");
-//        FileWriter fw = new FileWriter(csv);
-//        for (Integer i : div) {
-//            String line = "\"" +
-//                    j +
-//                    "\"" +
-//                    ";" +
-//                    "\"" +
-//                    i +
-//                    "\"" +
-//                    ";" +
-//                    "\n";
-//            //System.out.println("Nb de points avec une divergence de " + j + " est de " + i);
-//            j++;
-//            fw.write(line);
-//        }
-//        fw.close();
-//    }
-
 
 }

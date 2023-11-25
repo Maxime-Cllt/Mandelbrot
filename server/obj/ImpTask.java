@@ -56,26 +56,20 @@ public class ImpTask extends UnicastRemoteObject implements Task {
         }
 
         pointToDo.setColor(getColorForDivergence(divergence));
-        pointToDo.setDivergence(divergence);
+        pointToDo.setDivergence((short) divergence);
     }
 
     private static Color getColorForDivergence(int divergence) {
         return (divergence == 0) ? WHITE : BLACK;
     }
 
-    public int getDivergence() throws RemoteException {
-        return this.divergence;
-    }
 
-    @Override
-    public void affiche() throws RemoteException {
-        System.out.println("Point: " + pointToDo.getX() + " " + pointToDo.getY() + " Divergence: " + divergence);
-    }
-
-    public Point getPointToDo() throws RemoteException {
-        return this.pointToDo;
-    }
-
+    /**
+     * Convertit un point en complexe pour le calcul de la fractale
+     *
+     * @param p Point à convertir
+     * @return Complexe
+     */
     public Complexe convert(Point p) {
         return new Complexe(
                 p.getX() * (Constantes.INTERVALLE_FRAME_WIDTH / Constantes.WIDTH) + Constantes.DECAL_IMAGE_X,

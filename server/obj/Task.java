@@ -7,9 +7,4 @@ public interface Task extends Remote {
 
     void run() throws RemoteException;
 
-    Point getPointToDo() throws RemoteException;
-
-    int getDivergence() throws RemoteException;
-
-    void affiche() throws RemoteException;
 }

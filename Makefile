@@ -1,13 +1,12 @@
 all:
 	clear
-	# Compilation des fichiers java
-	javac server/*.java
-	javac server/obj/*.java
-	javac client/*.java
-	# Lancement du rmiregistry dans un script perso
-	#./server/rmi.sh
-	# Lancement du serveur
+	javac server/*.java server/obj/*.java client/*.java
 	java server.Serveur
+
+perf: # Pour des performances optimales
+	clear
+	javac -O -g:none server/*.java server/obj/*.java client/*.java
+	java -server -Xmx2g -Xms512m -XX:MaxGCPauseMillis=50 -XX:+UseParallelGC -XX:+UseCompressedClassPointers server.Serveur
 
 clean:
 	rm server/*.class
