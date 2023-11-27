@@ -21,7 +21,7 @@ public class Client {
             // On récupère la liste des données à traiter
             final String ip = "172.31.18.165";
             final String localIp = "localhost";
-            Registry registry = LocateRegistry.getRegistry(ip, Registry.REGISTRY_PORT);
+            Registry registry = LocateRegistry.getRegistry(localIp, Registry.REGISTRY_PORT);
             Mandelbrot bafOfTask = (Mandelbrot) registry.lookup("Mandelbrot");
 
             String[] cmd = {"/bin/sh", "-c", "echo $PPID"};
@@ -45,10 +45,13 @@ public class Client {
         } catch (java.rmi.ConnectException c) {
             run.set(false);
             System.out.println("\u001B[31mLe serveur a mis fin à la connection\u001B[0m");
+            System.err.println(c.getMessage());
+            c.printStackTrace();
             System.exit(0);
         } catch (Exception e) {
             run.set(false);
             e.printStackTrace();
+            System.err.println(e.getMessage());
             System.exit(0);
         }
     }

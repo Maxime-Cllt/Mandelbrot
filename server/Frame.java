@@ -22,7 +22,7 @@ public class Frame extends javax.swing.JFrame {
 
         initMenu();
 
-        JPanel container = new JPanel();
+        final javax.swing.JPanel container = new JPanel();
         container.setLayout(new BorderLayout());
         container.add(panel, BorderLayout.CENTER);
         this.setContentPane(container);
@@ -32,13 +32,11 @@ public class Frame extends javax.swing.JFrame {
         container.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                System.out.println("FROM X: " + evt.getX() + " Y: " + evt.getY());
                 complexe1 = convert(new Point(evt.getX(), evt.getY()));
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                System.out.println("TO X: " + evt.getX() + " Y: " + evt.getY());
                 complexe2 = convert(new Point(evt.getX(), evt.getY()));
                 //on modifie les coordonnées de l'intervalle complexe lors d'un zoom
                 Constantes.WIDTH_COMPLEXE = complexe1;
@@ -110,7 +108,10 @@ public class Frame extends javax.swing.JFrame {
         });
 
         info.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, Serveur.numberOfTaskDone + (Serveur.numberOfTaskDone > 1 ? " calculs" : " calcul"), "Statistiques", JOptionPane.INFORMATION_MESSAGE);
+            final String message = Serveur.numberOfTaskDone + (Serveur.numberOfTaskDone > 1 ? " calculs" : " calcul")
+                    + "\n";
+
+            JOptionPane.showMessageDialog(null, message, "Statistiques", JOptionPane.INFORMATION_MESSAGE);
         });
 
         menu_option.add(exec);
@@ -134,7 +135,7 @@ public class Frame extends javax.swing.JFrame {
      * @param p Point à convertir
      * @return Complexe correspondant au point
      */
-    public Complexe convert(Point p) {
+    public final Complexe convert(final Point p) {
         return new Complexe(p.getX() * (Constantes.INTERVALLE_FRAME_WIDTH / (double) Constantes.WIDTH) + Constantes.DECAL_IMAGE_X, p.getY() * (Constantes.INTERVALLE_FRAME_HEIGHT / (double) Constantes.HEIGHT) + Constantes.DECAL_IMAGE_Y);
     }
 }

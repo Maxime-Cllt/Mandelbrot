@@ -117,4 +117,13 @@ public class Serveur {
             return new Color(r, g, b);
         }
     }
+
+
+    private static Color getColorForDivergenceV2(final int divergence, final int maxDivergence) {
+        final int p = (int) (divergence / (double) maxDivergence * 100);
+        return new Color(p, p, p);
+    }
+
+
 }
+

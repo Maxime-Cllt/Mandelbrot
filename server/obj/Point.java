@@ -14,11 +14,11 @@ public class Point implements Serializable {
      * CONSTRUCTORS
      **************/
 
-    public Point(int x, int y) {
+    public Point(final int x, final int y) {
         this(x, y, Color.black);
     }
 
-    public Point(int x, int y, Color color) {
+    public Point(final int x, final int y, final Color color) {
         this.x = x;
         this.y = y;
         this.color = color;

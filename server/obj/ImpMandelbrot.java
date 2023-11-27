@@ -2,13 +2,14 @@ package server.obj;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
 
-    public LinkedList<Point> dataToDo;
-    public LinkedList<Task> taskDone;
+    public List<Point> dataToDo;
+    public List<Task> taskDone;
     public int sizeOfTask;
 
     /**
@@ -18,8 +19,8 @@ public class ImpMandelbrot extends UnicastRemoteObject implements Mandelbrot {
      */
     public ImpMandelbrot() throws RemoteException {
         super();
-        dataToDo = new LinkedList<>();
-        taskDone = new LinkedList<>();
+        dataToDo = new ArrayList<>();
+        taskDone = new ArrayList<>();
         sizeOfTask = 0;
     }
 

@@ -9,13 +9,13 @@ import java.util.List;
 
 public class Panel extends javax.swing.JPanel {
 
-    private ArrayList<Point> listePointMandelbrot;
+    private List<Point> listePointMandelbrot;
     private final BufferedImage image;
 
     public Panel() {
         this.setBackground(Color.WHITE);
         this.listePointMandelbrot = new ArrayList<>();
-        this.image = new BufferedImage(Constantes.WIDTH, Constantes.HEIGHT, BufferedImage.TYPE_INT_RGB);
+        this.image = new BufferedImage(Constantes.WIDTH, Constantes.HEIGHT, BufferedImage.TYPE_INT_ARGB);
     }
 
     public void setListePointMandelbrot(List<Point> listePointMandelbrot) {
