@@ -12,9 +12,9 @@ import java.util.Arrays;
 
 public class Serveur {
 
+    public static long numberOfTaskDone = 0;
     private static Frame frame;
     private static ImpMandelbrot bagOfTask;
-    public static long numberOfTaskDone = 0;
 
     public static void main(String[] args) throws RemoteException {
 
@@ -109,7 +109,7 @@ public class Serveur {
 
     private static Color getColorForDivergence(final int divergence, final int maxDivergence) {
         if (divergence == maxDivergence) {
-            return new Color(182, 255, 214);
+            return new Color(5, 241, 107);
         } else {
             final int r = Math.min((divergence + 1) * 8, 255);
             final int g = Math.min((divergence + 1) * 6, 255);
@@ -117,13 +117,6 @@ public class Serveur {
             return new Color(r, g, b);
         }
     }
-
-
-    private static Color getColorForDivergenceV2(final int divergence, final int maxDivergence) {
-        final int p = (int) (divergence / (double) maxDivergence * 100);
-        return new Color(p, p, p);
-    }
-
 
 }
 

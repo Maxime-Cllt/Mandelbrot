@@ -9,6 +9,7 @@ perf: # Pour des performances optimales
 	java -server -Xmx2g -Xms512m -XX:MaxGCPauseMillis=50 -XX:+UseParallelGC -XX:+UseCompressedClassPointers server.Serveur
 
 clean:
+	clear
 	rm server/*.class
 	rm server/obj/*.class
 	rm client/*.class

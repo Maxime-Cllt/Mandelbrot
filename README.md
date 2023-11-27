@@ -1,11 +1,10 @@
 <img
-  width="50px"
-  height="50px"
-  src="https://github.com/Maxime-Cllt/Mandelbrot/assets/98154358/6121b166-82fa-4081-b953-7d542dac000e"
-  alt="French" />
+width="50px"
+height="50px"
+src="https://github.com/Maxime-Cllt/Mandelbrot/assets/98154358/6121b166-82fa-4081-b953-7d542dac000e"
+alt="French" />
 
-#  Calcul Distribué de l'Ensemble de Mandelbrot avec Java RMI
-
+# Calcul Distribué de l'Ensemble de Mandelbrot avec Java RMI
 
 ## Aperçu
 
@@ -37,7 +36,7 @@ architecture distribuée.
     ```
 2. **Serveur :**
 
-    Il faut d'abord lancer le serveur sur la machine qui va afficher l'ensemble de Mandelbrot.
+   Il faut d'abord lancer le serveur sur la machine qui va afficher l'ensemble de Mandelbrot.
 
    ```bash
    make
@@ -45,7 +44,7 @@ architecture distribuée.
 
 3. **Client :**
 
-    Cette commande va lancer le client qui va se connecter au serveur et lancer les calculs.
+   Cette commande va lancer le client qui va se connecter au serveur et lancer les calculs.
 
    ```bash
    ./exec.sh
@@ -54,16 +53,18 @@ architecture distribuée.
 <br>
 
 <img
-  width="50px"
-  height="50px"
-  src="https://github.com/Maxime-Cllt/Mandelbrot/assets/98154358/8f443a15-4d8d-48a4-8277-499c38165633"
-  alt="English" />
+width="50px"
+height="50px"
+src="https://github.com/Maxime-Cllt/Mandelbrot/assets/98154358/8f443a15-4d8d-48a4-8277-499c38165633"
+alt="English" />
 
 # Distributed Calculation of the Mandelbrot Set with Java RMI
 
 ## Overview
 
-This project implements the generation of the Mandelbrot set using a distributed computing approach with Java RMI. The Mandelbrot set is a famous fractal in mathematics, and this implementation allows parallel computation of the set using a distributed architecture.
+This project implements the generation of the Mandelbrot set using a distributed computing approach with Java RMI. The
+Mandelbrot set is a famous fractal in mathematics, and this implementation allows parallel computation of the set using
+a distributed architecture.
 
 ## Features
 
@@ -71,7 +72,8 @@ This project implements the generation of the Mandelbrot set using a distributed
 
 - **Mandelbrot Set Generation:** Computes and visualizes the Mandelbrot set in parallel.
 
-- **Configurable Parameters:** Easily configure resolution, zoom level, and other parameters to explore different parts of the Mandelbrot set.
+- **Configurable Parameters:** Easily configure resolution, zoom level, and other parameters to explore different parts
+  of the Mandelbrot set.
 
 ## Prerequisites
 
