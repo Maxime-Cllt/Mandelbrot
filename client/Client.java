@@ -19,7 +19,9 @@ public class Client {
 
         try {
             // On récupère la liste des données à traiter
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            final String ip = "172.31.18.165";
+            final String localIp = "localhost";
+            Registry registry = LocateRegistry.getRegistry(ip, Registry.REGISTRY_PORT);
             Mandelbrot bafOfTask = (Mandelbrot) registry.lookup("Mandelbrot");
 
             String[] cmd = {"/bin/sh", "-c", "echo $PPID"};
@@ -27,8 +29,7 @@ public class Client {
             process.waitFor();
 
             java.util.Scanner s = new java.util.Scanner(process.getInputStream()).useDelimiter("\\A");
-            String pid = s.hasNext() ? s.next() : "N/A";
-            System.out.println("Lancement du client avec PID: " + pid);
+            System.out.println("Lancement du client avec PID: " + (s.hasNext() ? s.next() : "N/A"));
 
             Task task;
             while (run.get()) {

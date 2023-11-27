@@ -11,7 +11,7 @@ public class Constantes {
     public static Complexe HEIGHT_COMPLEXE = new Complexe(1, -1);
 
     // Limite de calcul du module de mandelbrot
-    public static int LIMIT = 100;
+    public static int LIMIT = 5000;
 
     // Intervalle de l'image en x et en y
     public static double INTERVALLE_FRAME_WIDTH = Math.abs(WIDTH_COMPLEXE.getA() - HEIGHT_COMPLEXE.getA());

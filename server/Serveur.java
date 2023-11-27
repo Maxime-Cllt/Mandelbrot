@@ -40,7 +40,7 @@ public class Serveur {
         arrArgs = null;
 
         Constantes.displayInfo();
-        Registry registry = LocateRegistry.createRegistry(1099);
+        Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         frame = new Frame(Constantes.WIDTH, Constantes.HEIGHT);
 
         try {

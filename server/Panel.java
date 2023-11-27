@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Panel extends javax.swing.JPanel {
 
-    private final ArrayList<Point> listePointMandelbrot;
+    private ArrayList<Point> listePointMandelbrot;
     private final BufferedImage image;
 
     public Panel() {
@@ -19,8 +19,7 @@ public class Panel extends javax.swing.JPanel {
     }
 
     public void setListePointMandelbrot(List<Point> listePointMandelbrot) {
-        this.listePointMandelbrot.clear();
-        this.listePointMandelbrot.addAll(listePointMandelbrot); // On copie la liste pour éviter les problèmes de concurrence
+        this.listePointMandelbrot = new ArrayList<>(listePointMandelbrot);
         repaint();
     }
 
