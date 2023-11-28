@@ -111,9 +111,9 @@ public class Serveur {
         if (divergence == maxDivergence) {
             return new Color(5, 241, 107);
         } else {
-            final int r = Math.min((divergence + 1) * 8, 255);
-            final int g = Math.min((divergence + 1) * 6, 255);
-            final int b = Math.min((divergence + 1) * 4, 255);
+            final int r = Math.min((divergence + 1) * 4, 255);
+            final int g = Math.min((divergence + 1) * 12, 255);
+            final int b = Math.min((divergence + 1) * 12, 255);
             return new Color(r, g, b);
         }
     }

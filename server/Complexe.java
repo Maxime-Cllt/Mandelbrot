@@ -44,7 +44,7 @@ public final class Complexe {
      * @return un nouveau complexe qui est la somme des deux complexes (Complexe)
      */
     public Complexe add(Complexe complexe) {
-        return new Complexe(this.getA() + complexe.getA(), this.getB() + complexe.getB());
+        return new Complexe(a + complexe.getA(), b + complexe.getB());
     }
 
     /**
@@ -53,7 +53,7 @@ public final class Complexe {
      * @return le module du complexe en double arrondi à 2 chiffres après la virgule (double)
      */
     public double module() {
-        return Math.sqrt(Math.pow(this.getA(), 2) + Math.pow(this.getB(), 2));
+        return Math.sqrt(a * a + b * b);
     }
 
     /********************

@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Panel extends javax.swing.JPanel {
 
-    private List<Point> listePointMandelbrot;
     private final BufferedImage image;
+    private List<Point> listePointMandelbrot;
 
     public Panel() {
         this.setBackground(Color.WHITE);

@@ -13,54 +13,41 @@ public class ImpTask extends UnicastRemoteObject implements Task {
     private static final Color BLACK = new Color(0, 0, 0);
     private static final Color WHITE = new Color(255, 255, 255);
     private final Point pointToDo;
-    private int divergence;
 
     public ImpTask(final Point point) throws RemoteException {
         super();
         pointToDo = point;
-        divergence = 0;
-    }
-
-    public void run() throws RemoteException {
-        Complexe z = new Complexe(0, 0);
-        Complexe complexe = convert(pointToDo);
-
-        final double complexeASquared = complexe.getA() * complexe.getA();
-        final double complexeBSquared = complexe.getB() * complexe.getB();
-        final double pSquared = Math.pow(complexe.getA() - ONE_FOURTH, 2) + complexeBSquared;
-        final double verif1 = complexeASquared + 1.0 + complexeBSquared;
-        final double verif2 = Math.sqrt(complexeASquared - ONE_FOURTH + complexeBSquared) - 2 * pSquared + ONE_FOURTH;
-
-        if (verif1 >= ONE_SIXTEENTH || complexe.getA() >= verif2) {
-            final int limit = Constantes.LIMIT;
-
-            for (int n = 0; n < limit; n += 2) {
-
-                if (z.module() > 2) {
-                    divergence = n;
-                    break;
-                }
-
-                z = z.multiply(z).add(complexe);
-
-                if (z.module() > 2) {
-                    divergence = n + 1;
-                    break;
-                }
-
-                z = z.multiply(z).add(complexe);
-
-            }
-        }
-
-        pointToDo.setColor(getColorForDivergence(divergence));
-        pointToDo.setDivergence((short) divergence);
     }
 
     private static Color getColorForDivergence(final int divergence) {
         return (divergence == 0) ? WHITE : BLACK;
     }
 
+    public void run() throws RemoteException {
+        Complexe z = new Complexe();
+        Complexe complexe = convert(pointToDo);
+        final double complexeASquared = complexe.getA() * complexe.getA();
+        final double complexeBSquared = complexe.getB() * complexe.getB();
+        final double pSquared = Math.pow(complexe.getA() - ONE_FOURTH, 2) + complexeBSquared;
+        final double verif1 = complexeASquared + 1.0 + complexeBSquared;
+        final double verif2 = Math.sqrt(complexeASquared - ONE_FOURTH + complexeBSquared) - 2 * pSquared + ONE_FOURTH;
+        int divergence = 0;
+
+        if (verif1 >= ONE_SIXTEENTH || complexe.getA() >= verif2) {
+            final int limit = Constantes.LIMIT;
+
+            for (int n = 0; n < limit; n++) {
+                if (z.module() > 2) {
+                    divergence = n;
+                    break;
+                }
+                z = z.multiply(z).add(complexe);
+            }
+        }
+
+        pointToDo.setColor(getColorForDivergence(divergence));
+        pointToDo.setDivergence((short) divergence);
+    }
 
     /**
      * Convertit un point en complexe pour le calcul de la fractale

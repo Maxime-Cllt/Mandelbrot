@@ -10,8 +10,7 @@ public class Constantes {
     public static Complexe WIDTH_COMPLEXE = new Complexe(-2, 1);
     public static Complexe HEIGHT_COMPLEXE = new Complexe(1, -1);
 
-    // Limite de calcul du module de mandelbrot
-    public static int LIMIT = 5000;
+    public static int LIMIT = 200; // Limite de calcul du module de mandelbrot
 
     // Intervalle de l'image en x et en y
     public static double INTERVALLE_FRAME_WIDTH = Math.abs(WIDTH_COMPLEXE.getA() - HEIGHT_COMPLEXE.getA());
@@ -48,7 +47,7 @@ public class Constantes {
         DECAL_IMAGE_Y = Math.min(WIDTH_COMPLEXE.getB(), HEIGHT_COMPLEXE.getB());
     }
 
-    public static void displayInfo(){
+    public static void displayInfo() {
         System.out.println("-----------------------------------");
         System.out.println("Résolution de la frame: " + Constantes.WIDTH + "x" + Constantes.HEIGHT + "\nLimite de calcul: " + Constantes.LIMIT);
         System.out.print("Les intervalles complexe sont: (" + Constantes.WIDTH_COMPLEXE.getA() + ";" + Constantes.HEIGHT_COMPLEXE.getA() + ") sur l'axe des réels");
