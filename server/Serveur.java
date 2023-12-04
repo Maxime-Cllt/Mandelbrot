@@ -15,9 +15,9 @@ import java.util.Arrays;
  * args[0] : largeur de l'image
  * args[1] : hauteur de l'image
  * args[2] : nombre de limite de divergence
- * args[3] : partie réelle de la borne inférieur du plan complexe
+ * args[3] : partie réelle de la borne inférieure du plan complexe
  * args[4] : partie imaginaire de la borne inférieur du plan complexe
- * args[5] : partie réelle de la borne supérieur du plan complexe
+ * args[5] : partie réelle de la borne supérieure du plan complexe
  * args[6] : partie imaginaire de la borne supérieur du plan complexe
  *
  * exemple : java Serveur 800 600 1000 -1.5 -1.5 1.5 1.5
@@ -28,6 +28,8 @@ public class Serveur {
     public static long numberOfTaskDone = 0;
     private static Frame frame;
     private static ImpMandelbrot bagOfTask;
+    private static final double randomColor = (Math.random() * 12);
+
 
     public static void main(String[] args) throws RemoteException {
 
@@ -128,9 +130,9 @@ public class Serveur {
         if (divergence == maxDivergence) {
             return new Color(5, 241, 107);
         } else {
-            final int r = Math.min((divergence + 1) * 4, 255);
-            final int g = Math.min((divergence + 1) * 12, 255);
-            final int b = Math.min((divergence + 1) * 12, 255);
+            final int r = Math.toIntExact(Math.min((divergence + 1) * Math.round(randomColor / 2), 255));
+            final int g = Math.toIntExact(Math.min((divergence + 1) * Math.round(randomColor / 4), 255));
+            final int b = Math.toIntExact(Math.min((divergence + 1) * Math.round(randomColor / 3), 255));
             return new Color(r, g, b);
         }
     }
