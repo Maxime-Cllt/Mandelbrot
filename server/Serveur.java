@@ -10,6 +10,19 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Classe Serveur
+ * args[0] : largeur de l'image
+ * args[1] : hauteur de l'image
+ * args[2] : nombre de limite de divergence
+ * args[3] : partie réelle de la borne inférieur du plan complexe
+ * args[4] : partie imaginaire de la borne inférieur du plan complexe
+ * args[5] : partie réelle de la borne supérieur du plan complexe
+ * args[6] : partie imaginaire de la borne supérieur du plan complexe
+ *
+ * exemple : java Serveur 800 600 1000 -1.5 -1.5 1.5 1.5
+ */
+
 public class Serveur {
 
     public static long numberOfTaskDone = 0;
@@ -67,6 +80,10 @@ public class Serveur {
         }
     }
 
+
+    /**
+     * Méthode drawImage qui permet de dessiner l'image de la fractale de Mandelbrot en fonction des points de la liste.
+     */
     public static void drawImage() {
         bagOfTask.taskDone.clear();
         bagOfTask.sizeOfTask = 0;
