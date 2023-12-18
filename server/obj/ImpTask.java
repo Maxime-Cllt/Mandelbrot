@@ -23,6 +23,11 @@ public class ImpTask extends UnicastRemoteObject implements Task {
         return (divergence == 0) ? WHITE : BLACK;
     }
 
+
+    /**
+     * Fonction qui exécute la tâche (calcul de la fractale)
+     * @throws RemoteException
+     */
     public void run() throws RemoteException {
         Complexe z = new Complexe();
         Complexe complexe = convert(pointToDo);

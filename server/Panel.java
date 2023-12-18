@@ -18,11 +18,21 @@ public class Panel extends javax.swing.JPanel {
         this.image = new BufferedImage(Constantes.WIDTH, Constantes.HEIGHT, BufferedImage.TYPE_INT_ARGB);
     }
 
+    /**
+     * Permet de mettre à jour la liste des points de l'ensemble de Mandelbrot
+     *
+     * @param listePointMandelbrot la liste des points de l'ensemble de Mandelbrot
+     */
     public void setListePointMandelbrot(List<Point> listePointMandelbrot) {
         this.listePointMandelbrot = new ArrayList<>(listePointMandelbrot);
         repaint();
     }
 
+    /**
+     * Permet de dessiner les points de l'ensemble de Mandelbrot
+     *
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

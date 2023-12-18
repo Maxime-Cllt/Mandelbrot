@@ -11,15 +11,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Classe Client qui va se connecter au serveur et récupérer les données à traiter
- *
+ * <p>
  * args[0] : ip du serveur
- *
+ * <p>
  * ex: java client.Client localhost
  */
 public class Client {
 
-    private static final AtomicBoolean run = new AtomicBoolean(true);
-    private static final String localIp = "localhost";
+    private static final AtomicBoolean run = new AtomicBoolean(true); // Variable pour savoir si le client doit continuer à tourner
+    private static final String localIp = "localhost"; // Adresse ip du serveur
 
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class Client {
             ArrayList<String> arrArgs = new ArrayList<>(Arrays.asList(args));
             String ip;
 
-            if (arrArgs.size() == 1) ip = arrArgs.get(0);
+            if (arrArgs.size() == 1) ip = arrArgs.getFirst();
             else ip = localIp;
 
             // On récupère la liste des données à traiter

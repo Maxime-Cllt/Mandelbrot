@@ -5,8 +5,7 @@ import java.io.Serializable;
 
 public class Point implements Serializable {
 
-    private final int x;
-    private final int y;
+    private final int x, y;
     private Color color;
     private short divergence;
 
@@ -14,10 +13,23 @@ public class Point implements Serializable {
      * CONSTRUCTORS
      **************/
 
+    /**
+     * Constructeur de Point avec couleur et divergence par défaut
+     *
+     * @param x
+     * @param y
+     */
     public Point(final int x, final int y) {
         this(x, y, Color.black);
     }
 
+    /**
+     * Constructeur de Point avec couleur et divergence par défaut
+     *
+     * @param x
+     * @param y
+     * @param color
+     */
     public Point(final int x, final int y, final Color color) {
         this.x = x;
         this.y = y;

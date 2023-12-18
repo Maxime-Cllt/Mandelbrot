@@ -19,17 +19,16 @@ import java.util.Arrays;
  * args[4] : partie imaginaire de la borne inférieur du plan complexe
  * args[5] : partie réelle de la borne supérieure du plan complexe
  * args[6] : partie imaginaire de la borne supérieur du plan complexe
- *
+ * <p>
  * exemple : java Serveur 800 600 1000 -1.5 -1.5 1.5 1.5
  */
 
 public class Serveur {
 
+    private static final double randomColor = (Math.random() * 12);
     public static long numberOfTaskDone = 0;
     private static Frame frame;
     private static ImpMandelbrot bagOfTask;
-    private static final double randomColor = (Math.random() * 12);
-
 
     public static void main(String[] args) throws RemoteException {
 
@@ -70,6 +69,10 @@ public class Serveur {
         }
     }
 
+    /**
+     * Méthode initPoints qui permet d'initialiser les points de la liste.
+     * @param bagOfTask : la liste de points
+     */
     private static void initPoints(ImpMandelbrot bagOfTask) {
         try {
             final int width = Constantes.WIDTH;
@@ -126,6 +129,13 @@ public class Serveur {
         }
     }
 
+
+    /**
+     * Méthode getColorForDivergence qui permet de retourner une couleur en fonction de la divergence.
+     * @param divergence : la divergence
+     * @param maxDivergence : la divergence maximale
+     * @return une couleur
+     */
     private static Color getColorForDivergence(final int divergence, final int maxDivergence) {
         if (divergence == maxDivergence) {
             return new Color(5, 241, 107);

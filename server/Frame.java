@@ -55,6 +55,9 @@ public class Frame extends javax.swing.JFrame {
         return this.panel;
     }
 
+    /**
+     * Initialise le menu de la fenêtre principale
+     */
     private void initMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu_option = new JMenu("Options");
@@ -125,6 +128,10 @@ public class Frame extends javax.swing.JFrame {
         this.setJMenuBar(menuBar);
     }
 
+    /**
+     * Active ou désactive la fenêtre
+     * @param state Etat de la fenêtre
+     */
     public void setStateFrame(boolean state) {
         this.panel.setEnabled(state);
     }
