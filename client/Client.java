@@ -29,7 +29,7 @@ public class Client {
             ArrayList<String> arrArgs = new ArrayList<>(Arrays.asList(args));
             String ip;
 
-            if (arrArgs.size() == 1) ip = arrArgs.getFirst();
+            if (arrArgs.size() == 1) ip = arrArgs.get(0);
             else ip = localIp;
 
             // On récupère la liste des données à traiter
