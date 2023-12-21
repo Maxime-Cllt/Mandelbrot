@@ -1,8 +1,9 @@
 <p align="center">
-  <img width="250px" height="250px" src="https://github.com/Maxime-Cllt/Mandelbrot/documentation/image/F1.png" alt="Mandelbrot" />
-  <img width="250px" height="250px" src="https://github.com/Maxime-Cllt/Mandelbrot/documentation/image/F2.png" alt="Mandelbrot" />
-  <img width="250px" height="250px" src="https://github.com/Maxime-Cllt/Mandelbrot/documentation/image/F3.png" alt="Mandelbrot" />
+  <img width="250px" height="250px" src="https://github.com/Maxime-Cllt/Mandelbrot/blob/main/documentation/image/F1.png" alt="Mandelbrot" />
+  <img width="250px" height="250px" src="https://github.com/Maxime-Cllt/Mandelbrot/blob/main/documentation/image/F2.png" alt="Mandelbrot" />
+  <img width="250px" height="250px" src="https://github.com/Maxime-Cllt/Mandelbrot/blob/main/documentation/image/F3.png" alt="Mandelbrot" />
 </p>
+
 
 # Calcul Distribué de l'Ensemble de Mandelbrot avec Java RMI
 
