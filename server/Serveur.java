@@ -26,38 +26,38 @@ import java.util.Arrays;
 public class Serveur {
 
     private static final double randomColor = (Math.random() * 12);
-    public static long numberOfTaskDone = 0;
-    private static Frame frame;
-    private static ImpMandelbrot bagOfTask;
+    public static long numberOfTaskDone = 0; // Nombre de tâches effectuées
+    private static Frame frame; // Fenêtre
+    private static ImpMandelbrot bagOfTask; // Liste de points
 
-    public static void main(String[] args) throws RemoteException {
-
-        ArrayList<String> arrArgs = new ArrayList<>(Arrays.asList(args));
-
-        if (arrArgs.size() == 3 || arrArgs.size() == 7) {
-            Constantes.WIDTH = Integer.parseInt(args[0]);
-            Constantes.HEIGHT = Integer.parseInt(args[1]);
-            Constantes.LIMIT = Integer.parseInt(args[2]);
-        }
-        if (arrArgs.size() == 7) {
-            Constantes.WIDTH_COMPLEXE = new Complexe(Double.parseDouble(args[3]), Double.parseDouble(args[6]));
-            Constantes.HEIGHT_COMPLEXE = new Complexe(Double.parseDouble(args[4]), Double.parseDouble(args[5]));
-            Constantes.calculCoordPlan();
-        }
-        if (arrArgs.isEmpty()) {
-            System.out.println("Aucun paramètre n'a été renseigné. Le programme accepte 3 ou 7 arguments en paramètres");
-        } else if (arrArgs.size() != 3 && arrArgs.size() != 7) {
-            System.out.println("Le nombre de paramètre est incorrect. Le programme accepte 3 ou 7 arguments en paramètres");
-            return;
-        }
-
-        arrArgs = null;
-
-        Constantes.displayInfo();
-        Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-        frame = new Frame(Constantes.WIDTH, Constantes.HEIGHT);
-
+    public static void main(String[] args) {
         try {
+            ArrayList<String> arrArgs = new ArrayList<>(Arrays.asList(args));
+
+            if (arrArgs.size() == 3 || arrArgs.size() == 7) {
+                Constantes.WIDTH = Integer.parseInt(args[0]);
+                Constantes.HEIGHT = Integer.parseInt(args[1]);
+                Constantes.LIMIT = Integer.parseInt(args[2]);
+            }
+            if (arrArgs.size() == 7) {
+                Constantes.WIDTH_COMPLEXE = new Complexe(Double.parseDouble(args[3]), Double.parseDouble(args[6]));
+                Constantes.HEIGHT_COMPLEXE = new Complexe(Double.parseDouble(args[4]), Double.parseDouble(args[5]));
+                Constantes.calculCoordPlan();
+            }
+            if (arrArgs.isEmpty()) {
+                System.out.println("Aucun paramètre n'a été renseigné. Le programme accepte 3 ou 7 arguments en paramètres");
+            } else if (arrArgs.size() != 3 && arrArgs.size() != 7) {
+                System.out.println("Le nombre de paramètre est incorrect. Le programme accepte 3 ou 7 arguments en paramètres");
+                return;
+            }
+
+            arrArgs = null;
+
+            Constantes.displayInfo();
+            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+            frame = new Frame(Constantes.WIDTH, Constantes.HEIGHT);
+
+
             bagOfTask = new ImpMandelbrot();
             initPoints(bagOfTask);
             registry.rebind("Mandelbrot", bagOfTask);
@@ -71,6 +71,7 @@ public class Serveur {
 
     /**
      * Méthode initPoints qui permet d'initialiser les points de la liste.
+     *
      * @param bagOfTask : la liste de points
      */
     private static void initPoints(ImpMandelbrot bagOfTask) {
@@ -132,13 +133,14 @@ public class Serveur {
 
     /**
      * Méthode getColorForDivergence qui permet de retourner une couleur en fonction de la divergence.
-     * @param divergence : la divergence
+     *
+     * @param divergence    : la divergence
      * @param maxDivergence : la divergence maximale
-     * @return une couleur
+     * @return une couleur en fonction de la divergence
      */
     private static Color getColorForDivergence(final int divergence, final int maxDivergence) {
         if (divergence == maxDivergence) {
-            return new Color(5, 241, 107);
+            return new Color(0, 0, 0);
         } else {
             final int r = Math.toIntExact(Math.min((divergence + 1) * Math.round(randomColor / 2), 255));
             final int g = Math.toIntExact(Math.min((divergence + 1) * Math.round(randomColor / 4), 255));
