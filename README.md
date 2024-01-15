@@ -28,6 +28,13 @@ architecture distribuée.
 - Java 8 ou +
 - Git
 
+## Compatibilité
+
+<img src="https://img.shields.io/badge/OS-MacOS-informational?style=flat&logo=apple&logoColor=white&color=2bbc8a" alt="MacOS" />
+<img src="https://img.shields.io/badge/OS-Linux-informational?style=flat&logo=linux&logoColor=white&color=2bbc8a" alt="Linux" />
+<img src="https://img.shields.io/badge/OS-Windows-informational?style=flat&logo=windows&logoColor=white&color=2bbc8a" alt="Windows" />
+
+
 ## Démarrage
 
 1. **Cloner le Dépôt :**
