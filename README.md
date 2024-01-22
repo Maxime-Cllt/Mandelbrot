@@ -14,6 +14,8 @@ une approche de calcul distribué avec Java RMI. L'ensemble de Mandelbrot est un
 fractal célèbre en mathématiques et cette implémentation permet le calcul parallèle de l'ensemble en utilisant une
 architecture distribuée.
 
+Une version réalisé en C++ en utilisant MPI est disponible dans ce repository : <a href="https://github.com/Maxime-Cllt/Fractalium">Fractalium</a>
+
 ## Fonctionnalités
 
 - **Calcul Distribué :** Utilise Java RMI pour la répartition du calcul sur plusieurs nœuds.
